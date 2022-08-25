@@ -1,6 +1,8 @@
 # Documentación para instalar spaVim en Termux 
 >Tome este manual como un complemento para que su editor funcione correctamente, ya que puede omitirlo pero a largo o corto plazo le va a pedir dependencias o requisitos adicionales que ni usted mismo logrará encontrar, o puede que si, pero mejor instalarlos ahora mismo.
 
+Descargue Termux en su última versión desde **[Github](https://github.com/termux/termux-app/releases)** o **[F-Droid](https://f-droid.org/en/packages/com.termux/)**
+
 1) **Escoger repositorio por defecto**
 
     -
