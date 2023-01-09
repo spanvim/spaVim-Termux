@@ -285,8 +285,51 @@ Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
 
 Plug 'kristijanhusak/vim-carbon-now-sh'
 
+Plug 'mfussenegger/nvim-dap'
+" DAP
+Plug 'rcarriga/nvim-dap-ui'
+" DAP UI
+
 call plug#end()
 
+nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>
+nnoremap <silent> <F10> <Cmd>lua require'dap'.step_over()<CR>
+nnoremap <silent> <F11> <Cmd>lua require'dap'.step_into()<CR>
+nnoremap <silent> <F12> <Cmd>lua require'dap'.step_out()<CR>
+nnoremap <silent> <Leader>BB <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <Leader>BC <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <silent> <Leader>lp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
+nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
+
+map <silent>0 :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+exec "w"
+if &filetype == 'c'
+exec "!gcc % -o %<"
+exec "!time ./%<"
+elseif &filetype == 'cpp'
+exec "!g++ % -o %<"
+exec "!time ./%<"
+elseif &filetype == 'java'
+exec "!javac %"
+exec "!time java -cp %:p:h %:t:r"
+elseif &filetype == 'sh'
+exec "!time bash %"
+elseif &filetype == 'javascript'
+exec "!node %"
+elseif &filetype == 'python'
+exec "!python3 %"
+elseif &filetype == 'html'
+exec "!firefox % &"
+elseif &filetype == 'go'
+exec "!go build %<"
+exec "!time go run %"
+elseif &filetype == 'mkd'
+exec "!~/.vim/markdown.pl % > %.html &"
+exec "!firefox %.html &"
+endif
+endfunc
 
 " +++++
 " CARBON
@@ -1018,7 +1061,14 @@ nmap <leader>y :History:<CR>
 
 " +++++
 " CONFIG THEMES
-colorscheme moonlight
+set t_Co=256
+colorscheme moonlight "1
+
+noremap <silent>1 :colorscheme enfocado<CR>
+noremap <silent>2 :colorscheme moonlight<CR>
+noremap <silent>3 :colorscheme peachpuff<CR>
+noremap <silent>4 :colorscheme embark<CR>
+noremap <silent>5 :colorscheme pink-panic<CR>
 
 
 " +++++
@@ -1282,4 +1332,3 @@ let g:startify_lists = [
      \ ]                             
 "    \ { 'header': ['   DIRECTORIO ACTUAL '. getcwd()], 'type': 'dir' },
 nmap <c-n> :Startify <cr>
-
